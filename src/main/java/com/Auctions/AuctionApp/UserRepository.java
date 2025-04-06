@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
-    Optional<User> findUserByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     Optional<User> findByUsername(String username);
 
-    // Sprawdzenie istnienia użytkownika na podstawie firstName
+    // Sprawdzenie istnienia użytkownika na podstawie username
     boolean existsByUsername(String username);
 
     // Sprawdzenie istnienia użytkownika na podstawie email

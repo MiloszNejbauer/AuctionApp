@@ -13,6 +13,4 @@ public class AuctionAppApplication {
 		System.out.println("This is an Auction App");
 	}
 
-
-
 }
