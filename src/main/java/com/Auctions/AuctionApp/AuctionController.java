@@ -29,19 +29,26 @@ public class AuctionController {
 
     // Endpoint do tworzenia aukcji
     @PostMapping("/create")
-    public ResponseEntity<Auction> createAuction(@RequestBody Auction auction, @RequestHeader("Authorization") String token) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = jwtUtil.extractUsername(token); // ✅ email z tokena
+    public ResponseEntity<Auction> createAuction(@RequestBody AuctionRequest request, @RequestHeader("Authorization") String token) {
+        String email = jwtUtil.extractUsername(token);
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
 
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endTime = now.plusMinutes(request.getDurationMinutes());
 
+        Auction auction = new Auction();
+        auction.setAuctionName(request.getAuctionName());
+        auction.setCategory(request.getCategory());
+        auction.setTimestamp(now);
+        auction.setEndTime(endTime);
         auction.setCreatedByUserId(user.getId());
         auction.setCreatedByUsername(user.getUsername());
-        auction.setTimestamp(LocalDateTime.now());
 
         Auction createdAuction = auctionService.createAuction(auction);
+        System.out.println(request.getDurationMinutes());
         return new ResponseEntity<>(createdAuction, HttpStatus.CREATED);
     }
+
 
     // Endpoint do dodawania przedmiotów do aukcji
     @PostMapping("/{auctionId}/add-item")

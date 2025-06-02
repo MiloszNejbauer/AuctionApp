@@ -20,12 +20,9 @@ public class AuctionService {
     }
 
     public Auction createAuction(Auction auction) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        auction.setTimestamp(LocalDateTime.now());
-        auction.setCreatedByUserId(username);     // lub ID, jeśli masz inny sposób
-        auction.setCreatedByUsername(username);
         return auctionRepository.save(auction);
     }
+
 
 
     public Optional<Auction> getAuctionById(String auctionId) {
