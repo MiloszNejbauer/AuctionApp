@@ -1,0 +1,45 @@
+.auth-dropdown-form {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.auth-dropdown-form form input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.auth-dropdown-form form button {
+  width: 100%;
+  padding: 8px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.auth-dropdown-form form button:hover {
+  background-color: #218838;
+}
+
+.switch-auth {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #007bff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.auth-message {
+  font-size: 13px;
+  margin-top: 5px;
+  color: #555;
+}

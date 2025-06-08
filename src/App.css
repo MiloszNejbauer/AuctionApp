@@ -1,38 +1,386 @@
-.App {
-  text-align: center;
+/* Globalne resetowanie */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Toolbar */
+.toolbar {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 15px 30px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.toolbar h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.toolbar-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.toolbar button {
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.toolbar button:hover {
+  background-color: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Formularze */
+form {
+  background-color: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+form input,
+form select,
+form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  margin-top: 15px;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+/* Aukcje */
+.auction-list {
+  max-width: 800px;
+  margin: 20px auto;
+  list-style: none;
+  padding: 0;
+}
+
+.auction-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.auction-card:hover {
+  transform: scale(1.01);
+}
+
+.auction-card.expired {
+  opacity: 0.6;
+  background-color: #f8d7da;
+}
+
+.auction-card .expired-banner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #dc3545;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+/* Bid buttons */
+.bid-controls {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+input[type="number"] {
+  width: 100px;
+}
+
+/* Nowy styl: kontener nagłówka aukcji */
+.auction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+/* Sekcja po lewej: nazwa i kategoria */
+.auction-info-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.auction-info-left h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.auction-info-left .category {
+  font-weight: bold;
+  color: #555;
+}
+
+/* Sekcja po prawej: czas i daty */
+.auction-info-right {
+  text-align: right;
+  min-width: 200px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+}
+
+.auction-info-right p {
+  margin: 2px 0;
+}
+
+.auction-info-right .save-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Styl dla przycisku usuwania */
+.delete-button {
+  margin-top: 8px;
+  background: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  text-decoration: underline;
+}
+
+/* Styl szczegółów aukcji rozwiniętych */
+.auction-details {
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+}
+
+/* Styl aukcji zakończonej */
+.auction-card.expired .auction-info-right {
+  color: #a00;
+}
+
+/*Styl napisu aukcji zakończonej */
+.auction-ended-banner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(220, 53, 69, 0.95); /* lekka przezroczystość */
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 10;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none; /* nie blokuje kliknięć */
+}
+
+/* Główna nazwa strony */
+.page-title {
+  text-align: center;
+  font-size: 36px;
+  color: #333;
+  margin: 30px auto 20px auto;
+  position: relative;
+  z-index: 1;
+  font-weight: 700;
+  text-shadow: 1px 1px 0px #ccc;
+  letter-spacing: 1px;
+}
+
+/* Naprawienie wychodzących przycisków */
+.toolbar-buttons {
+  display: flex;
+  gap: 10px;
+  margin-right: 50px; /* 🔧 odstęp od prawej krawędzi */
+  flex-wrap: wrap;
+}
+
+.main-title {
+  margin: 0;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.dropdown-auth-container {
+  padding-top: 10px;
+}
+
+.user-dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  min-width: 220px;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background-color: #0056b3;
+}
+
+.edit-item-form {
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.edit-item-form input {
+  padding: 8px;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.edit-item-form .edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-item-form .save-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-item-form .save-btn:hover {
+  background-color: #218838;
+}
+
+.edit-item-form .cancel-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-item-form .cancel-btn:hover {
+  background-color: #c82333;
+}
+
+.auction-details-content {
+  padding: 15px;
+  margin-top: 10px;
+  border-top: 1px solid #eee;
+  background-color: #fdfdfd;
+  border-radius: 6px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.auction-details-content strong {
+  color: #007bff;
+}
+
+.auction-details-content em {
+  color: #888;
+  font-style: italic;
+}
+
+.auction-details-content .bid-controls {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.auction-details-content input[type="number"] {
+  width: 120px;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.auction-details-content button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.auction-details-content button:hover {
+  background-color: #218838;
 }
