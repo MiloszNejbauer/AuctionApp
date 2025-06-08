@@ -1,5 +1,7 @@
 package com.Auctions.AuctionApp;
 
+
+//do przekazywania danych z frontu
 public class LoginRequest {
     private String email;
     private String password;

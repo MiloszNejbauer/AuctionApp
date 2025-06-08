@@ -16,14 +16,10 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-
-
     @Autowired
     public UserService(UserRepository userRepository, AuctionRepository auctionRepository){
         this.userRepository = userRepository;
         this.auctionRepository = auctionRepository;
-
-
     }
 
     public List<User> getAllUsers() {
@@ -32,7 +28,7 @@ public class UserService {
 
     public User addUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("User with this email already exists");
+            throw new RuntimeException("Podany email jest już używany");
         }
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword())); // <- kluczowy krok
@@ -53,7 +49,4 @@ public class UserService {
         return Optional.empty();
     }
 
-
-
 }
-

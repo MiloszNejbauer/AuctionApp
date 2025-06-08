@@ -13,15 +13,53 @@ import java.util.List;
 @Document
 public class Auction {
 
+    //dane aukcji
     @Id
     private String id;
     private String auctionName;
     private LocalDateTime timestamp;
     private String category;
-    private List<Item> items;
     private String createdByUserId;
     private String createdByUsername;
     private LocalDateTime endTime;
+
+    //dane itemu
+    private String itemName;
+    private String itemDescription;
+    private double itemPrice;
+    private double currentBid;
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    public double getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public double getCurrentBid() {
+        return currentBid;
+    }
+
+    public void setCurrentBid(double currentBid) {
+        this.currentBid = currentBid;
+    }
 
     public LocalDateTime getEndTime() {
         return endTime;
@@ -47,9 +85,6 @@ public class Auction {
         this.createdByUserId = createdByUserId;
     }
 
-    public Auction() {
-        this.items = new ArrayList<>();  // Inicjalizujemy listę
-    }
 
     public String getId() {
         return id;
@@ -83,11 +118,4 @@ public class Auction {
         this.category = category;
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 }

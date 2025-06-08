@@ -30,13 +30,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        // ⛔ Jeśli nie ma tokenu albo nie zaczyna się od "Bearer " → przepuść dalej bez analizy
+        //Jeśli nie ma tokenu albo nie zaczyna się od "Bearer " przepuszcza dalej bez analizy
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // ✅ Jeśli token istnieje – analizuj dalej
+        //Jeśli token istnieje – analizuj dalej
         String jwt = authHeader.substring(7).trim();
         String username = null;
 
@@ -67,7 +67,6 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
-        // 🔚 Pamiętaj o przepuszczeniu requesta dalej w każdym przypadku
         filterChain.doFilter(request, response);
     }
 }

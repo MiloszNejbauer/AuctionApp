@@ -30,11 +30,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/users/add",
-                                "/api/v1/users/login",// lub dokładniej: "/api/v1/users/add", "/api/v1/users/login"
-                                "/api/v1/auctions"            // lista aukcji
-//                                "/api/v1/auctions/*/items/**"
-                        ).permitAll()
-                        .requestMatchers("/api/v1/auctions/**").authenticated()
+                                "/api/v1/users/login",
+                                "/api/v1/auctions"
+                        ).permitAll() //dopuszczone dla wszystkich
+                        .requestMatchers("/api/v1/auctions/**").authenticated() //dopuszczone po uwierzytelnianiu
                         .anyRequest().authenticated()
                 )
 
@@ -55,6 +54,7 @@ public class SecurityConfig {
         };
     }
 
+    //haszowanie hasła
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

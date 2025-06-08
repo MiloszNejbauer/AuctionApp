@@ -8,6 +8,36 @@ public class AuctionRequest {
     private String category;
     private int durationMinutes; // np. 5, 30, 60, 1440
 
+    private String itemName;
+    private String itemDescription;
+    private double itemPrice;
+
+    //Używany do przekazania danych z frontu do endpointu create
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    public double getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
     public String getAuctionName() {
         return auctionName;
     }

@@ -27,17 +27,18 @@ public class JwtUtil {
                 .compact();
     }
 
-    // 🔍 Ekstrakcja emaila (czyli username)
+    //Ekstrakcja emaila (czyli username)
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    // 🧠 Pomocnicze metody
+    //dekodowanie wybranej konkretnej wartości
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
+    //dekodowanie całego tokena
     private Claims extractAllClaims(String token) {
         try {
             if (token.startsWith("Bearer ")) {

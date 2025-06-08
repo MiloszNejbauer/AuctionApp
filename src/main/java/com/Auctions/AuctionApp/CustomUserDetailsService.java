@@ -10,6 +10,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    //ładowanie danych z bazy na potrzeby uwierzytelniania i autoryzacji
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
@@ -18,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .authorities("USER") // możesz dodać role/dostępy, jeśli chcesz
+                .authorities("USER")
                 .build();
     }
 }

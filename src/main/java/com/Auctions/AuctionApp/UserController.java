@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -22,33 +21,33 @@ public class UserController {
         this.jwtUtil = jwtUtil;
     }
 
+    //Endpoint do pobierania listy userów (nieużywany, pomocniczy)
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    //Endpoint dodawania usera
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         User createdUser = userService.addUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
+    //Endpoint do logowania
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
         return userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword())
                 .map(user -> {
-                    System.out.println("✅ Generuję token dla: " + user.getEmail());
                     String token = jwtUtil.generateToken(user.getEmail());
-                    return ResponseEntity.ok(Map.of("token", token));
+                    return ResponseEntity.ok(Map.of(
+                            "token", token,
+                            "username", user.getUsername(),
+                            "email", user.getEmail()
+                    ));
                 })
                 .orElseGet(() -> ResponseEntity
                         .status(HttpStatus.UNAUTHORIZED)
                         .body(Map.of("error", "Invalid email or password")));
     }
-
-
-
-
-
 }
-
